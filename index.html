@@ -1,47 +1,92 @@
 <!doctype html>
 <html lang="kk">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>MathToon • Бастауыш математика</title>
-  <link rel="stylesheet" href="assets/style.css"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>MathToon • 1–4 сынып</title>
+<style>
+:root{--p:#7c3aed;--pink:#ec4899;--stroke:rgba(2,6,23,.10);--shadow:0 14px 30px rgba(2,6,23,.12);--r:26px;}
+*{box-sizing:border-box}
+body{margin:0;font-family:ui-rounded,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+background:radial-gradient(circle at 12% 10%,#fff0f7,transparent 45%),
+radial-gradient(circle at 85% 18%,#e0f2fe,transparent 45%),
+radial-gradient(circle at 32% 88%,#dcfce7,transparent 55%),#fffafc;color:#172554;}
+.header{position:sticky;top:0;z-index:10;background:rgba(255,250,252,.85);backdrop-filter:blur(10px);
+border-bottom:1px solid var(--stroke);padding:10px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:52px;height:52px;border-radius:18px;background:linear-gradient(135deg,var(--p),var(--pink));
+box-shadow:var(--shadow);position:relative;transform:rotate(-2deg)}
+.logo:after{content:"★";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-weight:1000;font-size:22px}
+.brand h1{margin:0;font-size:18px;line-height:1.1}
+.brand small{display:block;color:#475569;font-weight:900}
+.container{max-width:1100px;margin:0 auto;padding:16px}
+.hero{border:1px solid var(--stroke);border-radius:var(--r);box-shadow:var(--shadow);
+background:linear-gradient(135deg,rgba(124,58,237,.14),rgba(34,197,94,.12),rgba(251,146,60,.10));padding:16px;position:relative;overflow:hidden}
+.spark{position:absolute;inset:-10px;opacity:.55;pointer-events:none;background-image:
+radial-gradient(circle at 10% 20%, rgba(250,204,21,.8) 0 2px, transparent 3px),
+radial-gradient(circle at 30% 60%, rgba(56,189,248,.8) 0 2px, transparent 3px),
+radial-gradient(circle at 70% 30%, rgba(236,72,153,.75) 0 2px, transparent 3px),
+radial-gradient(circle at 85% 75%, rgba(34,197,94,.75) 0 2px, transparent 3px);animation:f 6s ease-in-out infinite}
+@keyframes f{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:14px}
+.card{grid-column:span 12;border:1px solid var(--stroke);border-radius:var(--r);box-shadow:var(--shadow);
+background:rgba(255,255,255,.86);padding:14px}
+@media(min-width:900px){.span6{grid-column:span 6}}
+a.btn{display:block;text-decoration:none;color:#172554}
+.btn{border:1px solid var(--stroke);border-radius:22px;padding:16px;background:rgba(255,255,255,.9);
+box-shadow:0 10px 18px rgba(2,6,23,.08);font-weight:1000}
+.big{font-size:20px}
+.small{color:#475569;font-weight:900;margin-top:6px}
+.badge{display:inline-block;margin-top:10px;padding:7px 10px;border-radius:999px;border:1px dashed rgba(124,58,237,.22);
+background:rgba(124,58,237,.10);font-size:12px;font-weight:1000}
+</style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="nav">
-      <div class="brand"><div class="logo"></div><div><h1>MathToon</h1><small>Күнделікті сабаққа арналған мультяш сайт</small></div></div>
-      <div class="pills">
-        <a class="pill" href="grade-1.html">1-сынып</a>
-        <a class="pill" href="grade-2.html">2-сынып</a>
-        <a class="pill" href="grade-3.html">3-сынып</a>
-        <a class="pill" href="grade-4.html">4-сынып</a>
-      </div>
-    </div>
+<div class="header">
+  <div class="brand">
+    <div class="logo"></div>
+    <div><h1>MathToon</h1><small>1–4 сынып • мультяш математика</small></div>
+  </div>
+  <div class="badge">✅ iframe жоқ • 100% ашылады</div>
+</div>
+
+<div class="container">
+  <div class="hero">
+    <div class="spark"></div>
+    <h2 style="margin:0 0 6px 0;font-size:26px">Қай сыныпқа кіресің? 😊</h2>
+    <p style="margin:0;color:#475569;font-weight:900">Әр сыныпта: түсіндірме + L1/L2/L3 + тексеру + жұлдыз ⭐</p>
   </div>
 
-  <div class="container">
-    <section class="hero"><div class="sparkles"></div>
-      <h2>🌈 Математика — ойын сияқты!</h2>
-      <p>Әр тақырыпта: 🧩 ресурс + ⭐ L1/L2/L3 нақты тапсырмалар (бос емес).</p>
-      <div class="badges">
+  <div class="grid">
+    <div class="card span6">
+      <a class="btn" href="grade-1.html">
+        <div class="big">🌈 1-сынып</div>
+        <div class="small">Қосу 0–20, Салыстыру > < =, ойын</div>
         <span class="badge">🐰 Plusik</span>
-        <span class="badge">🦊 Minusya</span>
-        <span class="badge">🤖 Kobeyt</span>
-        <span class="badge">🐢 Bolu</span>
-      </div>
-    </section>
-
-    <div class="grid">
-      <div class="card">
-        <h3>📚 Сыныпты таңда</h3>
-        <div class="kids">
-          <a class="kid" href="grade-1.html"><div class="sticker st1">1</div><strong>1-сынып</strong><small>теңдік/теңсіздік + топтық жұмыс</small></a>
-          <a class="kid" href="grade-2.html"><div class="sticker st2">2</div><strong>2-сынып</strong><small>периметр, көбейту/бөлу</small></a>
-          <a class="kid" href="grade-3.html"><div class="sticker st3">3</div><strong>3-сынып</strong><small>амал тәртібі, бөлшек</small></a>
-          <a class="kid" href="grade-4.html"><div class="sticker st4">4</div><strong>4-сынып</strong><small>теңдеу, S-v-t, аудан</small></a>
-        </div>
-      </div>
+      </a>
+    </div>
+    <div class="card span6">
+      <a class="btn" href="grade-2.html">
+        <div class="big">🚀 2-сынып</div>
+        <div class="small">100-ге дейін амалдар, ондық/бірлік, уақыт</div>
+        <span class="badge">🦊 FoxTen</span>
+      </a>
+    </div>
+    <div class="card span6">
+      <a class="btn" href="grade-3.html">
+        <div class="big">🌟 3-сынып</div>
+        <div class="small">Көбейту/бөлу, 1000-ға дейін, периметр</div>
+        <span class="badge">🐼 PandaPro</span>
+      </a>
+    </div>
+    <div class="card span6">
+      <a class="btn" href="grade-4.html">
+        <div class="big">🎯 4-сынып</div>
+        <div class="small">Жазбаша көбейту/бөлу, бөлшек, аудан</div>
+        <span class="badge">🦁 LionLogic</span>
+      </a>
     </div>
   </div>
+</div>
 </body>
 </html>
