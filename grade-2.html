@@ -1,18 +1,236 @@
-<!doctype html><html lang="kk"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>2-сынып • MathToon</title><link rel="stylesheet" href="assets/style.css"/>
-</head><body>
-<div class="topbar"><div class="nav">
-  <div class="brand"><div class="logo"></div><div><h1>MathToon</h1><small>2-сынып • тақырыптар</small></div></div>
-  <div class="pills"><a class="pill" href="index.html">🏠</a></div>
-</div></div>
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>2-сынып • MathToon</title>
+<style>
+:root{--p:#0ea5e9;--pink:#22c55e;--stroke:rgba(2,6,23,.10);--shadow:0 14px 30px rgba(2,6,23,.12);--r:26px;}
+*{box-sizing:border-box}
+body{margin:0;font-family:ui-rounded,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#0f172a;
+background:radial-gradient(circle at 12% 10%,#e0f2fe,transparent 45%),
+radial-gradient(circle at 85% 18%,#dcfce7,transparent 45%),
+radial-gradient(circle at 32% 88%,#fff7ed,transparent 55%),#f8fafc;}
+header{position:sticky;top:0;z-index:20;background:rgba(248,250,252,.85);backdrop-filter:blur(10px);
+border-bottom:1px solid var(--stroke);padding:10px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:52px;height:52px;border-radius:18px;background:linear-gradient(135deg,var(--p),var(--pink));
+box-shadow:var(--shadow);position:relative;transform:rotate(-2deg)}
+.logo:after{content:"10";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-weight:1000;font-size:18px}
+.brand h1{margin:0;font-size:18px;line-height:1.1}
+.brand small{display:block;color:#475569;font-weight:900}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{padding:9px 12px;border-radius:999px;border:1px solid var(--stroke);background:rgba(255,255,255,.85);
+box-shadow:0 8px 18px rgba(2,6,23,.07);font-weight:1000;font-size:13px;cursor:pointer}
+.container{max-width:1100px;margin:0 auto;padding:16px}
+.hero{border:1px solid var(--stroke);border-radius:var(--r);box-shadow:var(--shadow);
+background:linear-gradient(135deg,rgba(14,165,233,.16),rgba(34,197,94,.12),rgba(251,146,60,.10));padding:16px;position:relative;overflow:hidden}
+.spark{position:absolute;inset:-10px;opacity:.55;pointer-events:none;background-image:
+radial-gradient(circle at 10% 20%, rgba(250,204,21,.8) 0 2px, transparent 3px),
+radial-gradient(circle at 30% 60%, rgba(56,189,248,.8) 0 2px, transparent 3px),
+radial-gradient(circle at 70% 30%, rgba(34,197,94,.75) 0 2px, transparent 3px),
+radial-gradient(circle at 85% 75%, rgba(249,115,22,.65) 0 2px, transparent 3px);animation:f 6s ease-in-out infinite}
+@keyframes f{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:14px}
+.card{grid-column:span 12;background:rgba(255,255,255,.88);border:1px solid var(--stroke);border-radius:var(--r);
+padding:14px;box-shadow:var(--shadow)}
+@media(min-width:900px){.span6{grid-column:span 6}.span4{grid-column:span 4}.span8{grid-column:span 8}}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.badge{padding:7px 10px;border-radius:999px;background:rgba(14,165,233,.10);border:1px dashed rgba(14,165,233,.22);font-weight:1000;font-size:12px}
+.btn{display:inline-flex;gap:10px;align-items:center;padding:12px 14px;border-radius:18px;border:1px solid var(--stroke);
+background:rgba(255,255,255,.9);font-weight:1000;cursor:pointer;box-shadow:0 10px 18px rgba(2,6,23,.08)}
+.row{display:grid;grid-template-columns:1fr 160px;gap:10px;align-items:center;padding:10px;border-radius:22px;
+border:1px solid rgba(2,6,23,.10);background:rgba(255,255,255,.75);margin-top:10px}
+.input{width:100%;padding:12px;border-radius:18px;border:1px solid rgba(2,6,23,.14);font-weight:1000}
+.note{padding:12px;border-radius:22px;border:1px solid rgba(249,115,22,.26);background:rgba(249,115,22,.10);font-weight:1000;margin-top:10px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.tab{padding:10px 12px;border-radius:16px;border:1px solid var(--stroke);background:rgba(255,255,255,.9);font-weight:1000;cursor:pointer}
+.tab.active{outline:3px solid rgba(14,165,233,.18)}
+.hidden{display:none}
+.scene{border:1px solid var(--stroke);border-radius:24px;background:linear-gradient(180deg,rgba(14,165,233,.18),rgba(34,197,94,.10));
+padding:12px;position:relative;overflow:hidden;min-height:170px}
+.char{position:absolute;bottom:52px;width:120px;height:120px;border-radius:28px;background:rgba(255,255,255,.86);
+border:1px solid rgba(2,6,23,.08);display:grid;place-items:center;box-shadow:0 16px 26px rgba(2,6,23,.12);animation:hop 1.6s ease-in-out infinite}
+@keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.face{width:76px;height:76px;border-radius:24px;background:linear-gradient(135deg,rgba(250,204,21,.55),rgba(14,165,233,.25));
+display:grid;place-items:center;font-size:34px;border:1px solid rgba(2,6,23,.06)}
+small{font-weight:1000;color:#475569}
+.ground{position:absolute;left:0;right:0;bottom:0;height:56px;background:linear-gradient(180deg,rgba(34,197,94,0),rgba(34,197,94,.28))}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="logo"></div>
+    <div><h1>MathToon</h1><small>2-сынып • FoxTen 🦊</small></div>
+  </div>
+  <div class="pills">
+    <a class="pill" href="index.html">🏠 Басты бет</a>
+    <button class="pill" onclick="window.print()">🖨️</button>
+  </div>
+</header>
+
 <div class="container">
-  <section class="hero"><div class="sparkles"></div><h2>2-сынып</h2><p>Тақырыпты таңда ✅</p></section>
-  <div class="grid"><div class="card"><h3>🧩 Тақырыптар</h3><div class="kids">
-    <a class="kid" href="topic.html?g=2&tid=g2-perimeter"><div class="sticker st1">★</div><strong>Периметр</strong><small>геоборд</small></a>
-    <a class="kid" href="topic.html?g=2&tid=g2-add100"><div class="sticker st2">★</div><strong>0–100: қосу/азайту</strong><small>L1/L2/L3</small></a>
-    <a class="kid" href="topic.html?g=2&tid=g2-mul0"><div class="sticker st3">★</div><strong>Көбейтуге кіріспе</strong><small>жүйелі</small></a>
-    <a class="kid" href="topic.html?g=2&tid=g2-div0"><div class="sticker st4">★</div><strong>Бөлуге кіріспе</strong><small>жүйелі</small></a>
-    <a class="kid" href="topic.html?g=2&tid=g2-story2"><div class="sticker st1">★</div><strong>Құрама есеп</strong><small>1–2 амал</small></a>
-  </div></div></div>
-</div></body></html>
+  <section class="hero">
+    <div class="spark"></div>
+    <h2 style="margin:0 0 6px 0;font-size:26px">2-сынып тақырыптары</h2>
+    <p style="margin:0;color:#475569;font-weight:900">100-ге дейін амалдар • ондық/бірлік • уақыт</p>
+    <div class="tabs">
+      <button class="tab active" data-tab="t1">➕➖ Амалдар (100)</button>
+      <button class="tab" data-tab="t2">🧱 Ондық/бірлік</button>
+      <button class="tab" data-tab="t3">⏰ Уақыт</button>
+    </div>
+  </section>
+
+  <!-- TAB 1 -->
+  <div id="t1" class="grid">
+    <div class="card span6">
+      <h3>🎬 Түсіндірме: екі таңбалы сан</h3>
+      <div class="scene">
+        <div class="char" style="left:14px"><div><div class="face">🦊</div><small id="a">34</small></div></div>
+        <div class="char" style="right:14px;animation-delay:.2s"><div><div class="face">🎒</div><small id="b">12</small></div></div>
+        <div class="char" style="left:50%;transform:translateX(-50%);bottom:58px;animation-delay:.1s"><div><div class="face">⭐</div><small id="s">46</small></div></div>
+        <div class="ground"></div>
+      </div>
+      <div class="note" id="rule">34 + 12 = 46 (ондықтар + бірліктер)</div>
+      <button class="btn" id="newExample">🔄 Жаңа мысал</button>
+    </div>
+
+    <div class="card span6">
+      <h3>📝 L1/L2/L3 (авто)</h3>
+      <div class="row"><div><b id="q1">?</b></div><input class="input ans" data-i="0" placeholder="Жауап"></div>
+      <div class="row"><div><b id="q2">?</b></div><input class="input ans" data-i="1" placeholder="Жауап"></div>
+      <div class="row"><div><b id="q3">?</b></div><input class="input ans" data-i="2" placeholder="Жауап"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+        <button class="btn" id="check">✅ Тексеру</button>
+        <button class="btn" id="regen">🎲 Басқа тапсырма</button>
+      </div>
+      <div class="note" id="msg">Дайын болсаң — тексер 😊</div>
+    </div>
+  </div>
+
+  <!-- TAB 2 -->
+  <div id="t2" class="grid hidden">
+    <div class="card span6">
+      <h3>🧱 Ондық және бірлік</h3>
+      <div class="note"><b>Мысал:</b> 47 = 4 ондық + 7 бірлік</div>
+      <div class="row"><div><b id="tensQ">58 = □ ондық + □ бірлік</b></div>
+        <input class="input" id="tensA" placeholder="мыс: 5,7"></div>
+      <button class="btn" id="tensCheck">✅ Тексеру</button>
+      <div class="note" id="tensMsg">Жаз: “5,8” сияқты</div>
+    </div>
+    <div class="card span6">
+      <h3>🎯 Құрастыр</h3>
+      <div class="row"><div><b>6 ондық + 3 бірлік = ?</b></div><input class="input" id="makeA" placeholder="Жауап"></div>
+      <div class="row"><div><b>2 ондық + 9 бірлік = ?</b></div><input class="input" id="makeB" placeholder="Жауап"></div>
+      <button class="btn" id="makeCheck">✅ Тексеру</button>
+      <div class="note" id="makeMsg">Жұлдыз жинайық ⭐</div>
+    </div>
+  </div>
+
+  <!-- TAB 3 -->
+  <div id="t3" class="grid hidden">
+    <div class="card span6">
+      <h3>⏰ Уақыт</h3>
+      <div class="note">Ереже: 1 сағат = 60 минут</div>
+      <div class="row"><div><b>2 сағат = ? минут</b></div><input class="input" id="m1" placeholder="Жауап"></div>
+      <div class="row"><div><b>90 минут = ? сағат ? минут</b></div><input class="input" id="m2" placeholder="мыс: 1:30"></div>
+      <button class="btn" id="timeCheck">✅ Тексеру</button>
+      <div class="note" id="timeMsg">Екіншіге “1:30” деп жаз</div>
+    </div>
+    <div class="card span6">
+      <h3>🧩 Мәтінді есеп (уақыт)</h3>
+      <div class="note"><b>Есеп:</b> Сабақ 9:00-де басталды. 40 минут өтті. Қай уақыт болды?</div>
+      <div class="row"><div><b>Жауап (сағ:мин)</b></div><input class="input" id="wordTime" placeholder="мыс: 9:40"></div>
+      <button class="btn" id="wordCheck">✅ Тексеру</button>
+      <div class="note" id="wordMsg">Жауапты форматпен жаз</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Tabs */
+const tabs=[...document.querySelectorAll(".tab")];
+function show(id){
+  ["t1","t2","t3"].forEach(x=>document.getElementById(x).classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+  tabs.forEach(t=>t.classList.toggle("active", t.dataset.tab===id));
+  window.scrollTo(0,0);
+}
+tabs.forEach(t=>t.onclick=()=>show(t.dataset.tab));
+
+/* TAB1 generator */
+let set=[];
+function rnd(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
+function genSet(){
+  set=[
+    {lvl:"L1", a:rnd(10,40), b:rnd(0,20), op:"+"},
+    {lvl:"L2", a:rnd(30,90), b:rnd(10,60), op: (Math.random()<.5?"+":"-")},
+    {lvl:"L3", a:rnd(40,99), b:rnd(10,59), op:"-"}
+  ];
+  document.getElementById("q1").textContent=`⭐ ${set[0].lvl}: ${set[0].a} + ${set[0].b} = ?`;
+  document.getElementById("q2").textContent=`⭐ ${set[1].lvl}: ${set[1].a} ${set[1].op} ${set[1].b} = ?`;
+  document.getElementById("q3").textContent=`⭐ ${set[2].lvl}: ${set[2].a} − ${set[2].b} = ?`;
+  document.querySelectorAll(".ans").forEach(i=>{i.value=""; i.style.borderColor="rgba(2,6,23,.14)";});
+  document.getElementById("msg").textContent="Дайын болсаң — тексер 😊";
+}
+function val(item){
+  if(item.op==="+") return item.a+item.b;
+  return item.a-item.b;
+}
+document.getElementById("check").onclick=()=>{
+  let ok=0;
+  document.querySelectorAll(".ans").forEach(inp=>{
+    const idx=Number(inp.dataset.i);
+    const need=String(val(set[idx]));
+    const got=(inp.value||"").trim();
+    if(got===need){ok++; inp.style.borderColor="rgba(34,197,94,.6)";}
+    else inp.style.borderColor="rgba(239,68,68,.6)";
+  });
+  document.getElementById("msg").textContent=`Нәтиже: ${ok}/3 ⭐`;
+};
+document.getElementById("regen").onclick=genSet;
+
+/* Example animation values */
+function newExample(){
+  const A=rnd(10,89), B=rnd(10,50);
+  document.getElementById("a").textContent=A;
+  document.getElementById("b").textContent=B;
+  document.getElementById("s").textContent=A+B;
+  document.getElementById("rule").textContent=`${A} + ${B} = ${A+B} (ондықтар + бірліктер)`;
+}
+document.getElementById("newExample").onclick=newExample;
+newExample(); genSet();
+
+/* TAB2 checks */
+document.getElementById("tensCheck").onclick=()=>{
+  const q=58;
+  const got=(document.getElementById("tensA").value||"").trim();
+  const need="5,8";
+  document.getElementById("tensMsg").textContent = (got===need) ? "Дұрыс ✅" : `Қате ❌ Дұрысы: ${need}`;
+};
+document.getElementById("makeCheck").onclick=()=>{
+  const a=(document.getElementById("makeA").value||"").trim();
+  const b=(document.getElementById("makeB").value||"").trim();
+  let ok=0;
+  if(a==="63") ok++;
+  if(b==="29") ok++;
+  document.getElementById("makeMsg").textContent=`Нәтиже: ${ok}/2 ⭐`;
+};
+
+/* TAB3 checks */
+document.getElementById("timeCheck").onclick=()=>{
+  const m1=(document.getElementById("m1").value||"").trim();
+  const m2=(document.getElementById("m2").value||"").trim();
+  let ok=0;
+  if(m1==="120") ok++;
+  if(m2==="1:30") ok++;
+  document.getElementById("timeMsg").textContent=`Нәтиже: ${ok}/2 ⭐`;
+};
+document.getElementById("wordCheck").onclick=()=>{
+  const got=(document.getElementById("wordTime").value||"").trim();
+  document.getElementById("wordMsg").textContent = (got==="9:40") ? "Дұрыс ✅" : "Қате ❌ (9:40)";
+};
+</script>
+</body>
+</html>
