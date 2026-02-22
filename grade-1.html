@@ -6,114 +6,570 @@
 <title>1-сынып • MathToon</title>
 
 <style>
+:root{
+  --bg1:#fff0f7; --bg2:#e0f2fe; --bg3:#dcfce7;
+  --ink:#172554; --muted:#475569;
+  --p:#7c3aed; --g:#22c55e; --o:#fb923c; --b:#38bdf8; --y:#facc15; --pink:#ec4899;
+  --stroke: rgba(2,6,23,.10);
+  --shadow: 0 14px 30px rgba(2,6,23,.12);
+  --r: 26px;
+}
+*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#ffeef7,#e0f7ff,#eaffea);
+  font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 12% 10%, var(--bg1), transparent 45%),
+    radial-gradient(circle at 85% 18%, var(--bg2), transparent 45%),
+    radial-gradient(circle at 32% 88%, var(--bg3), transparent 55%),
+    #fffafc;
 }
 header{
-  background:#7c3aed;
-  color:white;
-  padding:15px;
-  text-align:center;
-  font-size:22px;
-  font-weight:bold;
+  position:sticky;top:0;z-index:20;
+  backdrop-filter: blur(12px);
+  background: rgba(255,250,252,.80);
+  border-bottom:1px solid var(--stroke);
+  padding:10px 16px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
 }
-.section{
-  background:white;
-  margin:20px;
-  padding:20px;
-  border-radius:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+.brand{display:flex;align-items:center;gap:12px}
+.logo{
+  width:52px;height:52px;border-radius:18px;
+  background: linear-gradient(135deg, var(--p), var(--pink));
+  box-shadow: var(--shadow);
+  position:relative;
+  transform: rotate(-2deg);
 }
-h2{
-  margin-top:0;
+.logo:after{
+  content:"★";
+  position:absolute;inset:0;
+  display:grid;place-items:center;
+  color:white;font-weight:1000;font-size:22px;
+  text-shadow: 0 4px 0 rgba(0,0,0,.15);
 }
-iframe{
-  width:100%;
-  height:600px;
-  border:0;
-  border-radius:20px;
+.brand h1{margin:0;font-size:18px;line-height:1.1}
+.brand small{display:block;color:var(--muted);font-weight:900}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{
+  padding:9px 12px;border-radius:999px;
+  border:1px solid var(--stroke);
+  background: rgba(255,255,255,.75);
+  box-shadow: 0 8px 18px rgba(2,6,23,.07);
+  font-weight:1000;font-size:13px;
+  cursor:pointer;
 }
+.container{max-width:1100px;margin:0 auto;padding:16px}
+.hero{
+  border-radius: var(--r);
+  border:1px solid var(--stroke);
+  box-shadow: var(--shadow);
+  padding:16px;
+  background: linear-gradient(135deg, rgba(124,58,237,.14), rgba(34,197,94,.12), rgba(251,146,60,.10));
+  position:relative;
+  overflow:hidden;
+}
+.sparkles{
+  position:absolute;inset:-10px;pointer-events:none;opacity:.55;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(250,204,21,.8) 0 2px, transparent 3px),
+    radial-gradient(circle at 30% 60%, rgba(56,189,248,.8) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 30%, rgba(236,72,153,.75) 0 2px, transparent 3px),
+    radial-gradient(circle at 85% 75%, rgba(34,197,94,.75) 0 2px, transparent 3px);
+  animation: floaty 6s ease-in-out infinite;
+}
+@keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+.hero h2{margin:0 0 6px 0;font-size:26px}
+.hero p{margin:0;color:var(--muted);font-weight:900}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .badge{
-  display:inline-block;
-  background:#facc15;
-  padding:8px 14px;
-  border-radius:20px;
-  font-weight:bold;
-  margin-bottom:10px;
+  padding:7px 10px;border-radius:999px;
+  background: rgba(124,58,237,.10);
+  border:1px dashed rgba(124,58,237,.22);
+  font-weight:1000;font-size:12px;
 }
-.task{
-  background:#f3f4f6;
-  padding:10px;
-  border-radius:12px;
-  margin:8px 0;
+
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:14px}
+.card{
+  grid-column: span 12;
+  background: rgba(255,255,255,.84);
+  border:1px solid var(--stroke);
+  border-radius: var(--r);
+  padding:14px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
 }
-input{
-  padding:8px;
-  border-radius:10px;
-  border:1px solid #ccc;
+@media(min-width:900px){ .span6{grid-column: span 6;} .span4{grid-column: span 4;} .span8{grid-column: span 8;} }
+
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:12px 14px;border-radius:18px;
+  border:1px solid var(--stroke);
+  background: rgba(255,255,255,.85);
+  font-weight:1000;
+  cursor:pointer;
+  box-shadow: 0 10px 18px rgba(2,6,23,.08);
 }
+.btn.g{background: linear-gradient(135deg, rgba(34,197,94,.18), rgba(56,189,248,.12))}
+.btn.p{background: linear-gradient(135deg, rgba(124,58,237,.16), rgba(236,72,153,.12))}
+.btn.o{background: linear-gradient(135deg, rgba(251,146,60,.18), rgba(250,204,21,.16))}
+
+.scene{
+  border:1px solid var(--stroke);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(56,189,248,.18), rgba(34,197,94,.10));
+  padding:12px;
+  position:relative;
+  overflow:hidden;
+  min-height: 210px;
+}
+.ground{position:absolute;left:0;right:0;bottom:0;height:56px;background: linear-gradient(180deg, rgba(34,197,94,.0), rgba(34,197,94,.28));}
+.cloud{
+  position:absolute;top:18px;width:90px;height:40px;border-radius:999px;
+  background: rgba(255,255,255,.85);
+  border:1px solid rgba(2,6,23,.06);
+  filter: drop-shadow(0 10px 14px rgba(2,6,23,.08));
+  animation: cloudMove 10s linear infinite;
+}
+.cloud:before,.cloud:after{content:"";position:absolute;background: rgba(255,255,255,.88);border-radius:999px;border:1px solid rgba(2,6,23,.05);}
+.cloud:before{width:42px;height:42px;left:10px;top:-16px}
+.cloud:after{width:52px;height:52px;left:34px;top:-22px}
+@keyframes cloudMove{0%{transform:translateX(-120px)}100%{transform:translateX(1200px)}}
+
+.char{
+  width:120px;height:120px;border-radius:28px;
+  border:1px solid rgba(2,6,23,.08);
+  background: rgba(255,255,255,.85);
+  position:absolute;bottom:58px;
+  display:grid;place-items:center;
+  box-shadow: 0 16px 26px rgba(2,6,23,.12);
+  animation: hop 1.6s ease-in-out infinite;
+}
+@keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.left{left:14px}
+.right{right:14px; animation-delay:.2s}
+.face{
+  width:76px;height:76px;border-radius:24px;
+  background: linear-gradient(135deg, rgba(250,204,21,.55), rgba(236,72,153,.35));
+  display:grid;place-items:center;
+  font-size:34px;
+  border:1px solid rgba(2,6,23,.06);
+}
+.char small{display:block;margin-top:8px;font-weight:1000;color:var(--muted)}
+.bubble{
+  margin-top:10px;
+  padding:12px;border-radius:22px;
+  background: rgba(255,255,255,.78);
+  border:1px dashed rgba(124,58,237,.25);
+  font-weight:900;color:var(--muted);
+}
+
+.row{
+  display:grid;grid-template-columns:1fr 160px;gap:10px;
+  align-items:center;
+  padding:10px;border-radius:22px;
+  border:1px solid rgba(2,6,23,.10);
+  background: rgba(255,255,255,.75);
+  margin-top:10px;
+}
+.input{
+  width:100%;
+  padding:12px 12px;
+  border-radius:18px;
+  border:1px solid rgba(2,6,23,.14);
+  font-weight:1000;
+  background: rgba(255,255,255,.95);
+}
+.note{
+  padding:12px;border-radius:22px;
+  border:1px solid rgba(251,146,60,.26);
+  background: rgba(251,146,60,.10);
+  font-weight:1000;
+  margin-top:10px;
+}
+.small{font-size:12px;color:var(--muted);font-weight:900;margin-top:6px}
+
+.dropZone{
+  display:grid;grid-template-columns:1fr 110px 1fr;gap:10px;
+  align-items:center;
+  padding:10px;border-radius:22px;
+  border:1px solid rgba(2,6,23,.10);
+  background: rgba(255,255,255,.75);
+  margin-top:10px;
+}
+.numBox{
+  height:66px;border-radius:20px;
+  border:1px solid rgba(2,6,23,.10);
+  display:grid;place-items:center;
+  font-size:28px;font-weight:1000;
+  background: linear-gradient(135deg, rgba(250,204,21,.18), rgba(34,197,94,.10));
+}
+.slot{
+  height:66px;border-radius:20px;
+  border:2px dashed rgba(124,58,237,.35);
+  display:grid;place-items:center;
+  font-size:30px;font-weight:1000;
+  background: rgba(124,58,237,.06);
+}
+.tokens{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.token{
+  padding:10px 14px;border-radius:18px;
+  background: rgba(255,255,255,.88);
+  border:1px solid rgba(2,6,23,.10);
+  font-weight:1000;
+  cursor:grab;
+  user-select:none;
+  box-shadow: 0 10px 18px rgba(2,6,23,.08);
+}
+.ok{border-color: rgba(34,197,94,.55)!important; background: rgba(34,197,94,.10)!important}
+.bad{border-color: rgba(239,68,68,.55)!important; background: rgba(239,68,68,.08)!important}
+
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.tab{padding:10px 12px;border-radius:16px;border:1px solid var(--stroke);background:rgba(255,255,255,.8);font-weight:1000;cursor:pointer}
+.tab.active{outline:3px solid rgba(124,58,237,.18)}
+.hidden{display:none}
 </style>
 </head>
 
 <body>
-
 <header>
-🌈 1-сынып • Математика ойыны
+  <div class="brand">
+    <div class="logo"></div>
+    <div>
+      <h1>MathToon</h1>
+      <small>1-сынып • мультяш математика</small>
+    </div>
+  </div>
+  <div class="pills">
+    <button class="pill" id="goAdd">➕ Қосу</button>
+    <button class="pill" id="goCmp">🔵 Салыстыру</button>
+    <button class="pill" onclick="window.print()">🖨️</button>
+  </div>
 </header>
 
-<!-- =================== ҚОСУ =================== -->
+<div class="container">
+  <section class="hero">
+    <div class="sparkles"></div>
+    <h2>🌈 1-сынып • Математика ойыны</h2>
+    <p>Екі бөлім: <b>Қосу</b> және <b>Салыстыру</b>. Ішінде: түсіндірме + ойын + тест ✅</p>
+    <div class="badges">
+      <span class="badge">🐰 Plusik</span>
+      <span class="badge">🤖 RoboCompare</span>
+      <span class="badge">⭐ Тексеру батырмасы бар</span>
+    </div>
+  </section>
 
-<div class="section">
-<h2>➕ Қосу ойыны (PhET Number Pairs)</h2>
-<span class="badge">0–20 дейін қосу</span>
+  <!-- ===================== ҚОСУ ===================== -->
+  <div id="pageAdd">
+    <div class="grid">
+      <div class="card span6">
+        <h3>➕ Қосу: “Екі сан қосылса — үлкен сан болады!”</h3>
+        <div class="scene">
+          <div class="cloud" style="left:-120px; animation-duration: 11s;"></div>
+          <div class="cloud" style="left:-280px; top:52px; animation-duration: 13s; opacity:.8;"></div>
 
-<iframe 
-src="https://phet.colorado.edu/sims/html/number-pairs/2.0.0/number-pairs_all_iframe.html"
-allowfullscreen>
-</iframe>
+          <div class="char left">
+            <div class="face">🐰</div>
+            <small id="addA">3</small>
+          </div>
 
-<h3>⭐ L1 тапсырмалар</h3>
-<div class="task">3 + 2 = <input></div>
-<div class="task">4 + 1 = <input></div>
-<div class="task">5 + 3 = <input></div>
+          <div class="char right">
+            <div class="face">🍭</div>
+            <small id="addB">2</small>
+          </div>
 
-<h3>⭐ L2 тапсырмалар</h3>
-<div class="task">8 + 6 = <input></div>
-<div class="task">9 + 7 = <input></div>
+          <div class="char" style="left:50%;transform:translateX(-50%);bottom:64px;animation-delay:.1s;">
+            <div class="face">🎁</div>
+            <small id="addSum">5</small>
+          </div>
 
-<h3>⭐ L3 тапсырмалар</h3>
-<div class="task">13 + 7 = <input></div>
-<div class="task">15 + 9 = <input></div>
+          <div class="ground"></div>
+        </div>
+
+        <div class="bubble" id="addRule">
+          Ереже: <b>3 + 2 = 5</b>. Екі топты қосамыз → бәрі бірге болады.
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+          <button class="btn p" id="addNew">🔄 Жаңа мысал</button>
+          <button class="btn g" id="addShow">👀 Түсіндір</button>
+        </div>
+
+        <div class="note small">Кеңес: саусақпен санауға болады 😊</div>
+      </div>
+
+      <div class="card span6">
+        <h3>🎮 Қосу ойыны (0–20)</h3>
+        <p class="small">Жауапты жаз да “Тексеру” бас.</p>
+
+        <div class="row">
+          <div><b id="q1">3 + 2 = ?</b></div>
+          <input class="input" id="a1" placeholder="Жауап"/>
+        </div>
+        <div class="row">
+          <div><b id="q2">4 + 1 = ?</b></div>
+          <input class="input" id="a2" placeholder="Жауап"/>
+        </div>
+        <div class="row">
+          <div><b id="q3">5 + 3 = ?</b></div>
+          <input class="input" id="a3" placeholder="Жауап"/>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+          <button class="btn g" id="checkAdd">✅ Тексеру</button>
+          <button class="btn o" id="newAdd">🎲 Басқа тапсырма</button>
+        </div>
+
+        <div class="note" id="addMsg">Дайын болғанда тексер 😊</div>
+      </div>
+
+      <div class="card">
+        <h3>📝 Мини-тест (қосу)</h3>
+        <div class="row"><div><b>7 + 2 = ?</b></div><input class="input addT" data-ok="9" placeholder="Жауап"/></div>
+        <div class="row"><div><b>6 + 4 = ?</b></div><input class="input addT" data-ok="10" placeholder="Жауап"/></div>
+        <div class="row"><div><b>9 + 1 = ?</b></div><input class="input addT" data-ok="10" placeholder="Жауап"/></div>
+        <button class="btn g" id="checkAddTest" style="margin-top:10px;width:100%;justify-content:center">✅ Тестті тексер</button>
+        <div class="note" id="addTestMsg">Жұлдыз жинайық ⭐</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== САЛЫСТЫРУ ===================== -->
+  <div id="pageCmp" class="hidden">
+    <div class="grid">
+      <div class="card span6">
+        <h3>🔵 Салыстыру: “Кім үлкен? кім кіші? кім тең?”</h3>
+
+        <div class="scene">
+          <div class="cloud" style="left:-120px; animation-duration: 12s;"></div>
+          <div class="cloud" style="left:-280px; top:52px; animation-duration: 14s; opacity:.8;"></div>
+
+          <div class="char left">
+            <div class="face">🐣</div>
+            <small id="cmpA">3</small>
+          </div>
+
+          <div class="char right">
+            <div class="face">🤖</div>
+            <small id="cmpB">5</small>
+          </div>
+
+          <div class="char" style="left:50%;transform:translateX(-50%);bottom:64px;animation-delay:.1s;">
+            <div class="face" id="cmpSignFace">❓</div>
+            <small id="cmpSign">?</small>
+          </div>
+
+          <div class="ground"></div>
+        </div>
+
+        <div class="bubble" id="cmpRule">
+          Ереже: үлкен санға “ауыз” ашылады. (>, <, =)
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+          <button class="btn p" id="cmpNew">🔄 Жаңа мысал</button>
+          <button class="btn g" id="cmpShow">👀 Түсіндір</button>
+        </div>
+
+        <div class="note small">Мысал: 2 &lt; 7, 6 &gt; 4, 5 = 5</div>
+      </div>
+
+      <div class="card span6">
+        <h3>🎮 Ойын: белгіні таңда</h3>
+        <p class="small">Белгіні сүйреп қой да “Тексеру” бас.</p>
+
+        <div class="dropZone">
+          <div class="numBox" id="xA">8</div>
+          <div class="slot" id="slot">⬇️</div>
+          <div class="numBox" id="xB">3</div>
+        </div>
+
+        <div class="tokens">
+          <div class="token" draggable="true" data-v="=">=</div>
+          <div class="token" draggable="true" data-v=">">&gt;</div>
+          <div class="token" draggable="true" data-v="<">&lt;</div>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+          <button class="btn g" id="checkCmp">✅ Тексеру</button>
+          <button class="btn o" id="newCmp">🎲 Басқа жұп</button>
+        </div>
+
+        <div class="note" id="cmpMsg">Дайын болғанда тексер 😊</div>
+      </div>
+
+      <div class="card">
+        <h3>📝 Мини-тест (салыстыру)</h3>
+        <div class="row"><div><b>3 □ 9</b></div><input class="input cmpT" data-ok="<" placeholder="Белгі жаз"/></div>
+        <div class="row"><div><b>7 □ 7</b></div><input class="input cmpT" data-ok="=" placeholder="Белгі жаз"/></div>
+        <div class="row"><div><b>10 □ 4</b></div><input class="input cmpT" data-ok=">" placeholder="Белгі жаз"/></div>
+        <button class="btn g" id="checkCmpTest" style="margin-top:10px;width:100%;justify-content:center">✅ Тестті тексер</button>
+        <div class="note" id="cmpTestMsg">Жұлдыз жинайық ⭐</div>
+      </div>
+    </div>
+  </div>
 
 </div>
 
-<!-- =================== САЛЫСТЫРУ =================== -->
+<script>
+/* --------- Бет ауыстыру --------- */
+const pageAdd = document.getElementById("pageAdd");
+const pageCmp = document.getElementById("pageCmp");
+document.getElementById("goAdd").onclick = ()=>{ pageAdd.classList.remove("hidden"); pageCmp.classList.add("hidden"); window.scrollTo(0,0); };
+document.getElementById("goCmp").onclick = ()=>{ pageCmp.classList.remove("hidden"); pageAdd.classList.add("hidden"); window.scrollTo(0,0); };
 
-<div class="section">
-<h2>🔵 Салыстыру ойыны (PhET Number Compare)</h2>
-<span class="badge">>, <, = үйрену</span>
+/* --------- ҚОСУ: анимациялық мысал --------- */
+const addA = document.getElementById("addA");
+const addB = document.getElementById("addB");
+const addSum = document.getElementById("addSum");
+const addRule = document.getElementById("addRule");
+function newAddExample(){
+  const A = Math.floor(Math.random()*10)+1;
+  const B = Math.floor(Math.random()*10)+1;
+  addA.textContent = A;
+  addB.textContent = B;
+  addSum.textContent = A+B;
+  addRule.innerHTML = `Ереже: <b>${A} + ${B} = ${A+B}</b>. Екі топты қосамыз → бәрі бірге болады.`;
+}
+document.getElementById("addNew").onclick = newAddExample;
+document.getElementById("addShow").onclick = ()=>{ addRule.classList.add("ok"); setTimeout(()=>addRule.classList.remove("ok"),600); };
+newAddExample();
 
-<iframe 
-src="https://phet.colorado.edu/sims/html/number-compare/1.0.6/number-compare_all_iframe.html"
-allowfullscreen>
-</iframe>
+/* --------- ҚОСУ: 3 тапсырма генерация --------- */
+let addQs = [];
+function genAddSet(){
+  addQs = [];
+  for(let i=0;i<3;i++){
+    const A = Math.floor(Math.random()*11);
+    const B = Math.floor(Math.random()*11);
+    addQs.push([A,B]);
+  }
+  document.getElementById("q1").textContent = `${addQs[0][0]} + ${addQs[0][1]} = ?`;
+  document.getElementById("q2").textContent = `${addQs[1][0]} + ${addQs[1][1]} = ?`;
+  document.getElementById("q3").textContent = `${addQs[2][0]} + ${addQs[2][1]} = ?`;
+  document.getElementById("a1").value = "";
+  document.getElementById("a2").value = "";
+  document.getElementById("a3").value = "";
+  document.getElementById("addMsg").textContent = "Дайын болғанда тексер 😊";
+}
+document.getElementById("newAdd").onclick = genAddSet;
+document.getElementById("checkAdd").onclick = ()=>{
+  const got = [
+    document.getElementById("a1").value.trim(),
+    document.getElementById("a2").value.trim(),
+    document.getElementById("a3").value.trim()
+  ];
+  let ok = 0;
+  got.forEach((v,i)=>{
+    const need = String(addQs[i][0]+addQs[i][1]);
+    if(v === need) ok++;
+  });
+  document.getElementById("addMsg").textContent = `Нәтиже: ${ok}/3 ⭐`;
+};
+genAddSet();
 
-<h3>⭐ L1 тапсырмалар</h3>
-<div class="task">3 □ 5 <input></div>
-<div class="task">7 □ 2 <input></div>
-<div class="task">4 □ 4 <input></div>
+/* --------- ҚОСУ: мини-тест --------- */
+document.getElementById("checkAddTest").onclick = ()=>{
+  const inputs = [...document.querySelectorAll(".addT")];
+  let ok = 0;
+  inputs.forEach(inp=>{
+    const got = (inp.value||"").trim();
+    const need = inp.dataset.ok;
+    if(got === need){ ok++; inp.style.borderColor = "rgba(34,197,94,.6)"; }
+    else { inp.style.borderColor = "rgba(239,68,68,.6)"; }
+  });
+  document.getElementById("addTestMsg").textContent = `Нәтиже: ${ok}/${inputs.length} ⭐`;
+};
 
-<h3>⭐ L2 тапсырмалар</h3>
-<div class="task">12 □ 15 <input></div>
-<div class="task">18 □ 9 <input></div>
+/* --------- САЛЫСТЫРУ: ереже/мысал --------- */
+const cmpA = document.getElementById("cmpA");
+const cmpB = document.getElementById("cmpB");
+const cmpSign = document.getElementById("cmpSign");
+const cmpSignFace = document.getElementById("cmpSignFace");
+const cmpRule = document.getElementById("cmpRule");
 
-<h3>⭐ L3 тапсырмалар</h3>
-<div class="task">20 − 5 □ 12 <input></div>
-<div class="task">8 + 6 □ 14 <input></div>
+function signFor(A,B){
+  if(A>B) return ">";
+  if(A<B) return "<";
+  return "=";
+}
+function newCmpExample(){
+  const A = Math.floor(Math.random()*10)+1;
+  const B = Math.floor(Math.random()*10)+1;
+  const s = signFor(A,B);
+  cmpA.textContent = A;
+  cmpB.textContent = B;
+  cmpSign.textContent = s;
+  cmpSignFace.textContent = (s==="=")?"🟣":(s===">")?"🔵":"🟢";
+  cmpRule.innerHTML = `Мысал: <b>${A} ${s} ${B}</b>. Белгі “аузы” <b>үлкен санға</b> ашылады.`;
+}
+document.getElementById("cmpNew").onclick = newCmpExample;
+document.getElementById("cmpShow").onclick = ()=>{ cmpRule.classList.add("ok"); setTimeout(()=>cmpRule.classList.remove("ok"),600); };
+newCmpExample();
 
-</div>
+/* --------- САЛЫСТЫРУ: drag & drop --------- */
+const slot = document.getElementById("slot");
+let dropped = null;
 
+document.querySelectorAll(".token").forEach(t=>{
+  t.addEventListener("dragstart", e=>{
+    e.dataTransfer.setData("text/plain", t.dataset.v);
+  });
+});
+slot.addEventListener("dragover", e=>{ e.preventDefault(); slot.classList.add("ok"); });
+slot.addEventListener("dragleave", ()=> slot.classList.remove("ok"));
+slot.addEventListener("drop", e=>{
+  e.preventDefault();
+  dropped = e.dataTransfer.getData("text/plain");
+  slot.textContent = dropped === "<" ? "‹" : dropped;
+  slot.classList.remove("ok","bad");
+});
+
+function newCmpPair(){
+  const A = Math.floor(Math.random()*10)+1;
+  const B = Math.floor(Math.random()*10)+1;
+  document.getElementById("xA").textContent = A;
+  document.getElementById("xB").textContent = B;
+  dropped = null;
+  slot.textContent = "⬇️";
+  slot.classList.remove("ok","bad");
+  document.getElementById("cmpMsg").textContent = "Дайын болғанда тексер 😊";
+}
+document.getElementById("newCmp").onclick = newCmpPair;
+
+document.getElementById("checkCmp").onclick = ()=>{
+  const A = Number(document.getElementById("xA").textContent);
+  const B = Number(document.getElementById("xB").textContent);
+  const need = signFor(A,B);
+  const msg = document.getElementById("cmpMsg");
+
+  if(!dropped){
+    slot.classList.add("bad");
+    msg.textContent = "Алдымен белгіні сүйреп қой 😊";
+    return;
+  }
+  if(dropped === need){
+    slot.classList.add("ok"); slot.classList.remove("bad");
+    msg.textContent = "Жарайсың! Дұрыс ✅";
+  } else {
+    slot.classList.add("bad"); slot.classList.remove("ok");
+    msg.textContent = "Қайта көр! Дұрысы: " + need;
+  }
+};
+newCmpPair();
+
+/* --------- САЛЫСТЫРУ: мини-тест --------- */
+document.getElementById("checkCmpTest").onclick = ()=>{
+  const inputs = [...document.querySelectorAll(".cmpT")];
+  let ok = 0;
+  inputs.forEach(inp=>{
+    const got = (inp.value||"").trim().replace("‹","<").replace("›",">");
+    const need = inp.dataset.ok;
+    if(got === need){ ok++; inp.style.borderColor = "rgba(34,197,94,.6)"; }
+    else { inp.style.borderColor = "rgba(239,68,68,.6)"; }
+  });
+  document.getElementById("cmpTestMsg").textContent = `Нәтиже: ${ok}/${inputs.length} ⭐`;
+};
+</script>
 </body>
 </html>
