@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Тақырып • MathToon</title>
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+  <div class="topbar"><div class="nav">
+    <div class="brand"><div class="logo"></div><div><h1>MathToon</h1><small id="crumb">Тақырып</small></div></div>
+    <div class="pills">
+      <a class="pill" href="index.html">🏠</a>
+      <a class="pill" id="back" href="#">⬅️ Сынып</a>
+    </div>
+  </div></div>
+
+  <div class="container">
+    <section class="hero"><div class="sparkles"></div>
+      <h2 id="t">Тақырып</h2>
+      <p>🧩 Ресурс → ⭐ L1/L2/L3 тапсырма</p>
+      <div class="badges" id="badges"></div>
+    </section>
+
+    <div class="grid">
+      <div class="card span6">
+        <h3>🧩 Интерактив ресурс</h3>
+        <div id="embedBox"></div>
+        <div class="notice" style="margin-top:10px">Егер iframe ашылмаса — “↗️ Жаңа бетте ашу” бас.</div>
+      </div>
+
+      <div class="card span6">
+        <h3>⭐ Деңгейді таңда</h3>
+        <div class="kids">
+          <a class="kid" id="go1" href="#"><div class="sticker st1">L1</div><strong>Қызық</strong><small>жеңіл</small></a>
+          <a class="kid" id="go2" href="#"><div class="sticker st2">L2</div><strong>Шебер</strong><small>орта</small></a>
+          <a class="kid" id="go3" href="#"><div class="sticker st3">L3</div><strong>Батыр</strong><small>қиындау</small></a>
+        </div>
+
+        <a class="btn o" id="groupBtn" href="#" style="margin-top:10px">👥 Топтық жұмыс</a>
+
+        <div class="badges" style="margin-top:10px">
+          <span class="badge">🐰 Plusik</span><span class="badge">🦊 Minusya</span>
+          <span class="badge">🤖 Kobeyt</span><span class="badge">🐢 Bolu</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import {params, qs, getTopic, renderEmbed} from "./assets/app.js";
+    const {g, tid} = params();
+
+    qs("#crumb").textContent = `${g}-сынып • ${tid}`;
+    qs("#back").href = `grade-${g}.html`;
+
+    const topic = getTopic(g, tid);
+    qs("#t").textContent = topic?.title || "Тақырып";
+    qs("#badges").innerHTML = `
+      <span class="badge">📘 ${g}-сынып</span>
+      <span class="badge">📌 ${topic?.section || "Математика"}</span>
+      <span class="badge">✅ Тапсырма дайын</span>
+    `;
+
+    renderEmbed(topic.iframe);
+
+    qs("#go1").href = `practice.html?g=${g}&tid=${tid}&lvl=L1`;
+    qs("#go2").href = `practice.html?g=${g}&tid=${tid}&lvl=L2`;
+    qs("#go3").href = `practice.html?g=${g}&tid=${tid}&lvl=L3`;
+
+    const btn = qs("#groupBtn");
+    if(topic?.groupwork){
+      btn.href = topic.groupwork;
+      btn.style.display = "inline-flex";
+    } else {
+      btn.style.display = "none";
+    }
+  </script>
+</body>
+</html>
