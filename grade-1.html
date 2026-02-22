@@ -1,33 +1,119 @@
 <!doctype html>
 <html lang="kk">
 <head>
-  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>1-сынып • MathToon</title>
-  <link rel="stylesheet" href="assets/style.css"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>1-сынып • MathToon</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#ffeef7,#e0f7ff,#eaffea);
+}
+header{
+  background:#7c3aed;
+  color:white;
+  padding:15px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+}
+.section{
+  background:white;
+  margin:20px;
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+h2{
+  margin-top:0;
+}
+iframe{
+  width:100%;
+  height:600px;
+  border:0;
+  border-radius:20px;
+}
+.badge{
+  display:inline-block;
+  background:#facc15;
+  padding:8px 14px;
+  border-radius:20px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+.task{
+  background:#f3f4f6;
+  padding:10px;
+  border-radius:12px;
+  margin:8px 0;
+}
+input{
+  padding:8px;
+  border-radius:10px;
+  border:1px solid #ccc;
+}
+</style>
 </head>
+
 <body>
-  <div class="topbar"><div class="nav">
-    <div class="brand"><div class="logo"></div><div><h1>MathToon</h1><small>1-сынып • тақырыптар</small></div></div>
-    <div class="pills"><a class="pill" href="index.html">🏠</a></div>
-  </div></div>
 
-  <div class="container">
-    <section class="hero"><div class="sparkles"></div>
-      <h2>1-сынып</h2><p>Тақырыпты таңда: әр тақырыпта тапсырма дайын ✅</p>
-    </section>
+<header>
+🌈 1-сынып • Математика ойыны
+</header>
 
-    <div class="grid">
-      <div class="card">
-        <h3>🧩 Тақырыптар</h3>
-        <div class="kids">
-          <a class="kid" href="topic.html?g=1&tid=g1-eq89"><div class="sticker st1">★</div><strong>Теңдік және теңсіздік</strong><small>топтық жұмыс бар</small></a>
-          <a class="kid" href="topic.html?g=1&tid=g1-add20"><div class="sticker st2">★</div><strong>0–20: қосу</strong><small>L1/L2/L3</small></a>
-          <a class="kid" href="topic.html?g=1&tid=g1-sub20"><div class="sticker st3">★</div><strong>0–20: азайту</strong><small>L1/L2/L3</small></a>
-          <a class="kid" href="topic.html?g=1&tid=g1-shapes"><div class="sticker st4">★</div><strong>Фигуралар</strong><small>геометрия</small></a>
-          <a class="kid" href="topic.html?g=1&tid=g1-story1"><div class="sticker st1">★</div><strong>Қарапайым мәтінді есеп</strong><small>1 амал</small></a>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- =================== ҚОСУ =================== -->
+
+<div class="section">
+<h2>➕ Қосу ойыны (PhET Number Pairs)</h2>
+<span class="badge">0–20 дейін қосу</span>
+
+<iframe 
+src="https://phet.colorado.edu/sims/html/number-pairs/2.0.0/number-pairs_all_iframe.html"
+allowfullscreen>
+</iframe>
+
+<h3>⭐ L1 тапсырмалар</h3>
+<div class="task">3 + 2 = <input></div>
+<div class="task">4 + 1 = <input></div>
+<div class="task">5 + 3 = <input></div>
+
+<h3>⭐ L2 тапсырмалар</h3>
+<div class="task">8 + 6 = <input></div>
+<div class="task">9 + 7 = <input></div>
+
+<h3>⭐ L3 тапсырмалар</h3>
+<div class="task">13 + 7 = <input></div>
+<div class="task">15 + 9 = <input></div>
+
+</div>
+
+<!-- =================== САЛЫСТЫРУ =================== -->
+
+<div class="section">
+<h2>🔵 Салыстыру ойыны (PhET Number Compare)</h2>
+<span class="badge">>, <, = үйрену</span>
+
+<iframe 
+src="https://phet.colorado.edu/sims/html/number-compare/1.0.6/number-compare_all_iframe.html"
+allowfullscreen>
+</iframe>
+
+<h3>⭐ L1 тапсырмалар</h3>
+<div class="task">3 □ 5 <input></div>
+<div class="task">7 □ 2 <input></div>
+<div class="task">4 □ 4 <input></div>
+
+<h3>⭐ L2 тапсырмалар</h3>
+<div class="task">12 □ 15 <input></div>
+<div class="task">18 □ 9 <input></div>
+
+<h3>⭐ L3 тапсырмалар</h3>
+<div class="task">20 − 5 □ 12 <input></div>
+<div class="task">8 + 6 □ 14 <input></div>
+
+</div>
+
 </body>
 </html>
