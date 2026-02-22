@@ -1,95 +1,503 @@
 <!doctype html>
 <html lang="kk">
 <head>
-  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Тақырып • MathToon</title>
-  <link rel="stylesheet" href="assets/style.css"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>1-сынып • Теңдік және теңсіздік</title>
+
+  <style>
+    :root{
+      --bg1:#fff0f7; --bg2:#e0f2fe; --bg3:#dcfce7;
+      --card:#ffffffcc; --ink:#172554; --muted:#475569;
+      --p:#7c3aed; --g:#22c55e; --o:#fb923c; --b:#38bdf8; --y:#facc15; --pink:#ec4899;
+      --stroke: rgba(2,6,23,.10);
+      --shadow: 0 14px 30px rgba(2,6,23,.12);
+      --r: 26px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 12% 10%, var(--bg1), transparent 45%),
+        radial-gradient(circle at 85% 18%, var(--bg2), transparent 45%),
+        radial-gradient(circle at 32% 88%, var(--bg3), transparent 55%),
+        #fffafc;
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1120px;margin:0 auto;padding:18px}
+
+    .topbar{
+      position:sticky;top:0;z-index:20;
+      backdrop-filter: blur(12px);
+      background: rgba(255,250,252,.78);
+      border-bottom:1px solid var(--stroke);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:52px;height:52px;border-radius:18px;
+      background: linear-gradient(135deg, var(--p), var(--pink));
+      box-shadow: var(--shadow);
+      position:relative;
+      transform: rotate(-2deg);
+    }
+    .logo:after{
+      content:"★";
+      position:absolute;inset:0;
+      display:grid;place-items:center;
+      color:white;font-weight:1000;font-size:22px;
+      text-shadow: 0 4px 0 rgba(0,0,0,.15);
+    }
+    .brand h1{margin:0;font-size:18px;line-height:1.1}
+    .brand small{display:block;color:var(--muted);font-weight:900}
+    .pills{display:flex;gap:8px;flex-wrap:wrap}
+    .pill{
+      padding:9px 12px;border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.75);
+      box-shadow: 0 8px 18px rgba(2,6,23,.07);
+      font-weight:1000;font-size:13px;
+    }
+
+    .hero{
+      border-radius: var(--r);
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      padding:16px;
+      background: linear-gradient(135deg, rgba(124,58,237,.14), rgba(34,197,94,.12), rgba(251,146,60,.10));
+      position:relative;
+      overflow:hidden;
+    }
+    .sparkles{
+      position:absolute;inset:-10px;pointer-events:none;opacity:.55;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(250,204,21,.8) 0 2px, transparent 3px),
+        radial-gradient(circle at 30% 60%, rgba(56,189,248,.8) 0 2px, transparent 3px),
+        radial-gradient(circle at 70% 30%, rgba(236,72,153,.75) 0 2px, transparent 3px),
+        radial-gradient(circle at 85% 75%, rgba(34,197,94,.75) 0 2px, transparent 3px);
+      animation: floaty 6s ease-in-out infinite;
+    }
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+    .hero h2{margin:0 0 6px 0;font-size:26px}
+    .hero p{margin:0;color:var(--muted);font-weight:900}
+
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:14px}
+    .card{
+      grid-column: span 12;
+      background: rgba(255,255,255,.82);
+      border:1px solid var(--stroke);
+      border-radius: var(--r);
+      padding:14px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    @media(min-width:900px){ .span6{grid-column: span 6;} .span4{grid-column: span 4;} .span8{grid-column: span 8;} }
+    .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .badge{
+      padding:7px 10px;border-radius:999px;
+      background: rgba(124,58,237,.10);
+      border:1px dashed rgba(124,58,237,.22);
+      font-weight:1000;font-size:12px;
+    }
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:12px 14px;border-radius:18px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.85);
+      font-weight:1000;
+      cursor:pointer;
+      box-shadow: 0 10px 18px rgba(2,6,23,.08);
+    }
+    .btn.g{background: linear-gradient(135deg, rgba(34,197,94,.18), rgba(56,189,248,.12))}
+    .btn.p{background: linear-gradient(135deg, rgba(124,58,237,.16), rgba(236,72,153,.12))}
+    .btn.o{background: linear-gradient(135deg, rgba(251,146,60,.18), rgba(250,204,21,.16))}
+
+    /* мультяш кейіпкерлер */
+    .scene{
+      border:1px solid var(--stroke);
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(56,189,248,.18), rgba(34,197,94,.10));
+      padding:12px;
+      position:relative;
+      overflow:hidden;
+      min-height: 210px;
+    }
+    .ground{
+      position:absolute;left:0;right:0;bottom:0;height:56px;
+      background: linear-gradient(180deg, rgba(34,197,94,.0), rgba(34,197,94,.28));
+    }
+    .cloud{
+      position:absolute;top:18px;width:90px;height:40px;border-radius:999px;
+      background: rgba(255,255,255,.85);
+      border:1px solid rgba(2,6,23,.06);
+      filter: drop-shadow(0 10px 14px rgba(2,6,23,.08));
+      animation: cloudMove 10s linear infinite;
+    }
+    .cloud:before,.cloud:after{
+      content:"";position:absolute;background: rgba(255,255,255,.88);border-radius:999px;
+      border:1px solid rgba(2,6,23,.05);
+    }
+    .cloud:before{width:42px;height:42px;left:10px;top:-16px}
+    .cloud:after{width:52px;height:52px;left:34px;top:-22px}
+    @keyframes cloudMove{
+      0%{transform:translateX(-120px)}
+      100%{transform:translateX(1200px)}
+    }
+
+    .char{
+      width:120px;height:120px;border-radius:28px;
+      border:1px solid rgba(2,6,23,.08);
+      background: rgba(255,255,255,.85);
+      position:absolute;bottom:58px;
+      display:grid;place-items:center;
+      box-shadow: 0 16px 26px rgba(2,6,23,.12);
+      animation: hop 1.6s ease-in-out infinite;
+    }
+    @keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    .char .face{
+      width:76px;height:76px;border-radius:24px;
+      background: linear-gradient(135deg, rgba(250,204,21,.55), rgba(236,72,153,.35));
+      display:grid;place-items:center;
+      font-size:34px;
+      border:1px solid rgba(2,6,23,.06);
+    }
+    .char small{display:block;margin-top:8px;font-weight:1000;color:var(--muted)}
+    .left{left:14px}
+    .right{right:14px; animation-delay:.2s}
+    .sign{
+      position:absolute;left:50%;transform:translateX(-50%);
+      bottom:92px;
+      width:92px;height:92px;border-radius:26px;
+      background: linear-gradient(135deg, rgba(124,58,237,.20), rgba(56,189,248,.16));
+      border:1px solid rgba(2,6,23,.10);
+      display:grid;place-items:center;
+      font-size:44px;font-weight:1000;
+      box-shadow: 0 18px 26px rgba(2,6,23,.14);
+      transition: transform .2s ease;
+    }
+    .sign.pop{transform:translateX(-50%) scale(1.08) rotate(-2deg)}
+    .bubble{
+      margin-top:10px;
+      padding:12px;border-radius:22px;
+      background: rgba(255,255,255,.78);
+      border:1px dashed rgba(124,58,237,.25);
+      font-weight:900;color:var(--muted);
+    }
+
+    /* drag & drop */
+    .dropZone{
+      display:grid;grid-template-columns:1fr 110px 1fr;gap:10px;
+      align-items:center;
+      padding:10px;border-radius:22px;
+      border:1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.75);
+      margin-top:10px;
+    }
+    .numBox{
+      height:66px;border-radius:20px;
+      border:1px solid rgba(2,6,23,.10);
+      display:grid;place-items:center;
+      font-size:28px;font-weight:1000;
+      background: linear-gradient(135deg, rgba(250,204,21,.18), rgba(34,197,94,.10));
+    }
+    .slot{
+      height:66px;border-radius:20px;
+      border:2px dashed rgba(124,58,237,.35);
+      display:grid;place-items:center;
+      font-size:30px;font-weight:1000;
+      background: rgba(124,58,237,.06);
+    }
+    .tokens{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .token{
+      padding:10px 14px;border-radius:18px;
+      background: rgba(255,255,255,.88);
+      border:1px solid rgba(2,6,23,.10);
+      font-weight:1000;
+      cursor:grab;
+      user-select:none;
+      box-shadow: 0 10px 18px rgba(2,6,23,.08);
+    }
+    .ok{border-color: rgba(34,197,94,.55)!important; background: rgba(34,197,94,.10)!important}
+    .bad{border-color: rgba(239,68,68,.55)!important; background: rgba(239,68,68,.08)!important}
+
+    .miniTest .row{
+      display:grid;grid-template-columns:1fr 140px;gap:10px;
+      align-items:center;
+      padding:10px;border-radius:22px;
+      border:1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.75);
+      margin-top:10px;
+    }
+    .miniTest input{
+      width:100%;
+      padding:12px 12px;
+      border-radius:18px;
+      border:1px solid rgba(2,6,23,.14);
+      font-weight:1000;
+      background: rgba(255,255,255,.95);
+    }
+    .note{
+      padding:12px;border-radius:22px;
+      border:1px solid rgba(251,146,60,.26);
+      background: rgba(251,146,60,.10);
+      font-weight:1000;
+      margin-top:10px;
+    }
+  </style>
 </head>
+
 <body>
-  <div class="topbar"><div class="nav">
-    <div class="brand"><div class="logo"></div><div><h1>MathToon</h1><small id="crumb">Тақырып</small></div></div>
-    <div class="pills">
-      <a class="pill" href="index.html">🏠</a>
-      <a class="pill" id="back" href="#">⬅️ Сынып</a>
-    </div>
-  </div></div>
-
-  <div class="container">
-    <section class="hero"><div class="sparkles"></div>
-      <h2 id="t">Тақырып</h2>
-      <p>🧩 Ресурс → ⭐ L1/L2/L3 тапсырма</p>
-      <div class="badges" id="badges"></div>
-    </section>
-
-    <div class="grid">
-      <div class="card span6">
-        <h3>🧩 Интерактив ресурс</h3>
-        <div class="embed">
-  <iframe 
-    src="https://phet.colorado.edu/sims/html/number-compare/1.3.3/number-compare_all_iframe.html"
-    width="100%" 
-    height="600"
-    style="border:0; border-radius:16px;"
-    allowfullscreen>
-  </iframe>
-</div>
-
-<div class="badges">
-  <span class="badge">🎯 PhET: Салыстыру</span>
-  <a class="badge" target="_blank" rel="noreferrer"
-     href="https://phet.colorado.edu/sims/html/number-compare/latest/number-compare_all.html">
-     ↗️ Жаңа бетте ашу
-  </a>
-</div>
-        <div class="notice" style="margin-top:10px">Егер iframe ашылмаса — “↗️ Жаңа бетте ашу” бас.</div>
+  <div class="topbar">
+    <div class="nav">
+      <div class="brand">
+        <div class="logo"></div>
+        <div>
+          <h1>MathToon</h1>
+          <small>1-сынып • Теңдік және теңсіздік</small>
+        </div>
       </div>
-
-      <div class="card span6">
-        <h3>⭐ Деңгейді таңда</h3>
-        <div class="kids">
-          <a class="kid" id="go1" href="#"><div class="sticker st1">L1</div><strong>Қызық</strong><small>жеңіл</small></a>
-          <a class="kid" id="go2" href="#"><div class="sticker st2">L2</div><strong>Шебер</strong><small>орта</small></a>
-          <a class="kid" id="go3" href="#"><div class="sticker st3">L3</div><strong>Батыр</strong><small>қиындау</small></a>
-        </div>
-
-        <a class="btn o" id="groupBtn" href="#" style="margin-top:10px">👥 Топтық жұмыс</a>
-
-        <div class="badges" style="margin-top:10px">
-          <span class="badge">🐰 Plusik</span><span class="badge">🦊 Minusya</span>
-          <span class="badge">🤖 Kobeyt</span><span class="badge">🐢 Bolu</span>
-        </div>
+      <div class="pills">
+        <a class="pill" href="grade-1.html">⬅️ 1-сынып</a>
+        <a class="pill" href="index.html">🏠 Басты бет</a>
       </div>
     </div>
   </div>
 
-  <script type="module">
-    import {params, qs, getTopic, renderEmbed} from "./assets/app.js";
-    const {g, tid} = params();
+  <div class="container">
+    <section class="hero">
+      <div class="sparkles"></div>
+      <h2>⭐ “Кім үлкен? кім кіші? кім тең?”</h2>
+      <p>Біз үш белгімен дос боламыз: <b>=</b> тең, <b>&gt;</b> үлкен, <b>&lt;</b> кіші.</p>
+      <div class="badges">
+        <span class="badge">🟣 = тең</span>
+        <span class="badge">🔵 &gt; үлкен</span>
+        <span class="badge">🟢 &lt; кіші</span>
+        <span class="badge">🎮 ойын + тест</span>
+      </div>
+    </section>
 
-    qs("#crumb").textContent = `${g}-сынып • ${tid}`;
-    qs("#back").href = `grade-${g}.html`;
+    <div class="grid">
+      <!-- 1) Анимациялық түсіндірме -->
+      <div class="card span6">
+        <h3>🎬 Анимациялық түсіндірме</h3>
+        <div class="scene" id="scene">
+          <div class="cloud" style="left:-120px; animation-duration: 11s;"></div>
+          <div class="cloud" style="left:-280px; top:52px; animation-duration: 13s; opacity:.8;"></div>
 
-    const topic = getTopic(g, tid);
-    qs("#t").textContent = topic?.title || "Тақырып";
-    qs("#badges").innerHTML = `
-      <span class="badge">📘 ${g}-сынып</span>
-      <span class="badge">📌 ${topic?.section || "Математика"}</span>
-      <span class="badge">✅ Тапсырма дайын</span>
-    `;
+          <div class="char left">
+            <div class="face" id="Lface">🐰</div>
+            <small id="Lnum">3</small>
+          </div>
 
-    renderEmbed(topic.iframe);
+          <div class="sign" id="sign">?</div>
 
-    qs("#go1").href = `practice.html?g=${g}&tid=${tid}&lvl=L1`;
-    qs("#go2").href = `practice.html?g=${g}&tid=${tid}&lvl=L2`;
-    qs("#go3").href = `practice.html?g=${g}&tid=${tid}&lvl=L3`;
+          <div class="char right">
+            <div class="face" id="Rface">🤖</div>
+            <small id="Rnum">5</small>
+          </div>
 
-    const btn = qs("#groupBtn");
-    if(topic?.groupwork){
-      btn.href = topic.groupwork;
-      btn.style.display = "inline-flex";
-    } else {
-      btn.style.display = "none";
+          <div class="ground"></div>
+        </div>
+
+        <div class="bubble" id="ruleText">
+          Ереже: сол жақ сан оң жақтан <b>үлкен</b> болса — <b>&gt;</b> қоямыз.
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+          <button class="btn p" id="prev">⬅️ Алдыңғы</button>
+          <button class="btn g" id="next">Келесі ➡️</button>
+        </div>
+
+        <div class="note">Кеңес: белгінің “аузы” әрқашан <b>үлкен санға</b> ашылады 😊</div>
+      </div>
+
+      <!-- 2) Мысалдар -->
+      <div class="card span6">
+        <h3>🧩 Мысалдар (оқып көр)</h3>
+
+        <div class="dropZone">
+          <div class="numBox">2</div>
+          <div class="slot ok"> &lt; </div>
+          <div class="numBox">7</div>
+        </div>
+
+        <div class="dropZone">
+          <div class="numBox">6</div>
+          <div class="slot ok"> &gt; </div>
+          <div class="numBox">4</div>
+        </div>
+
+        <div class="dropZone">
+          <div class="numBox">5</div>
+          <div class="slot ok"> = </div>
+          <div class="numBox">5</div>
+        </div>
+
+        <div class="note">Енді өзің жасап көр! Төменде ойын бар 👇</div>
+
+        <a class="btn o" href="groupwork-g1-eq89.html" style="margin-top:10px">👥 Топтық жұмыс</a>
+      </div>
+
+      <!-- 3) Drag & Drop ойыны -->
+      <div class="card span8">
+        <h3>🎮 Ойын: белгіні сүйреп апар</h3>
+        <p style="margin:0;color:var(--muted);font-weight:900">Белгіні ұстап, ортасындағы қорапқа қой: = немесе &gt; немесе &lt;</p>
+
+        <div class="dropZone" style="margin-top:12px">
+          <div class="numBox" id="a">8</div>
+          <div class="slot" id="slot" aria-label="drop here">⬇️</div>
+          <div class="numBox" id="b">3</div>
+        </div>
+
+        <div class="tokens">
+          <div class="token" draggable="true" data-v="=">=</div>
+          <div class="token" draggable="true" data-v=">">&gt;</div>
+          <div class="token" draggable="true" data-v="<">&lt;</div>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+          <button class="btn g" id="checkGame">✅ Тексеру</button>
+          <button class="btn p" id="newGame">🔄 Жаңа жұп</button>
+        </div>
+
+        <div class="note" id="gameMsg">Мақсат: дұрыс белгіні таңда!</div>
+      </div>
+
+      <!-- 4) Мини тест -->
+      <div class="card span4 miniTest">
+        <h3>📝 Мини-тест (5 тапсырма)</h3>
+
+        <div class="row">
+          <div><b>3 □ 9</b></div>
+          <input class="ans" data-ok="<" placeholder="Белгі жаз"/>
+        </div>
+        <div class="row">
+          <div><b>7 □ 7</b></div>
+          <input class="ans" data-ok="=" placeholder="Белгі жаз"/>
+        </div>
+        <div class="row">
+          <div><b>10 □ 4</b></div>
+          <input class="ans" data-ok=">" placeholder="Белгі жаз"/>
+        </div>
+        <div class="row">
+          <div><b>2+1 □ 3</b></div>
+          <input class="ans" data-ok="=" placeholder="Белгі жаз"/>
+        </div>
+        <div class="row">
+          <div><b>5 □ 8</b></div>
+          <input class="ans" data-ok="<" placeholder="Белгі жаз"/>
+        </div>
+
+        <button class="btn g" id="checkTest" style="margin-top:10px;width:100%;justify-content:center">✅ Тестті тексер</button>
+        <div class="note" id="testMsg">Дайын болғанда тексер 😊</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 1) Анимациялық слайд-түсіндірме
+    const slides = [
+      {L:3,R:5,sign:"<",text:"Ереже: сол жақ сан оң жақтан <b>кіші</b> болса — <b>&lt;</b> қоямыз."},
+      {L:8,R:2,sign:">",text:"Ереже: сол жақ сан оң жақтан <b>үлкен</b> болса — <b>&gt;</b> қоямыз."},
+      {L:6,R:6,sign:"=",text:"Ереже: екі сан <b>бірдей</b> болса — <b>=</b> қоямыз."},
+      {L:4,R:9,sign:"<",text:"Қара: 4 кіші 9-дан → <b>&lt;</b>"},
+      {L:7,R:1,sign:">",text:"Қара: 7 үлкен 1-ден → <b>&gt;</b>"},
+    ];
+    let i = 0;
+    const signEl = document.getElementById("sign");
+    const Lnum = document.getElementById("Lnum");
+    const Rnum = document.getElementById("Rnum");
+    const ruleText = document.getElementById("ruleText");
+
+    function paint(){
+      const s = slides[i];
+      Lnum.textContent = s.L;
+      Rnum.textContent = s.R;
+      signEl.textContent = s.sign;
+      ruleText.innerHTML = s.text;
+      signEl.classList.remove("pop");
+      void signEl.offsetWidth;
+      signEl.classList.add("pop");
     }
+    document.getElementById("next").onclick = ()=>{ i = (i+1)%slides.length; paint(); };
+    document.getElementById("prev").onclick = ()=>{ i = (i-1+slides.length)%slides.length; paint(); };
+    paint();
+
+    // 2) Drag & Drop ойын
+    const slot = document.getElementById("slot");
+    let dropped = null;
+
+    document.querySelectorAll(".token").forEach(t=>{
+      t.addEventListener("dragstart", e=>{
+        e.dataTransfer.setData("text/plain", t.dataset.v);
+      });
+    });
+
+    slot.addEventListener("dragover", e=>{ e.preventDefault(); slot.classList.add("ok"); });
+    slot.addEventListener("dragleave", ()=> slot.classList.remove("ok"));
+    slot.addEventListener("drop", e=>{
+      e.preventDefault();
+      const v = e.dataTransfer.getData("text/plain");
+      dropped = v;
+      slot.textContent = v === "<" ? "‹" : v;
+      slot.classList.remove("ok","bad");
+    });
+
+    function correctSign(a,b){
+      if(a>b) return ">";
+      if(a<b) return "<";
+      return "=";
+    }
+
+    function newPair(){
+      const a = document.getElementById("a");
+      const b = document.getElementById("b");
+      const A = Math.floor(Math.random()*10)+1;
+      const B = Math.floor(Math.random()*10)+1;
+      a.textContent = A;
+      b.textContent = B;
+      dropped = null;
+      slot.textContent = "⬇️";
+      slot.classList.remove("ok","bad");
+      document.getElementById("gameMsg").textContent = "Мақсат: дұрыс белгіні таңда!";
+    }
+
+    document.getElementById("checkGame").onclick = ()=>{
+      const A = Number(document.getElementById("a").textContent);
+      const B = Number(document.getElementById("b").textContent);
+      const need = correctSign(A,B);
+      const msg = document.getElementById("gameMsg");
+
+      if(!dropped){
+        slot.classList.add("bad");
+        msg.textContent = "Алдымен белгіні сүйреп қой 😊";
+        return;
+      }
+      if(dropped === need){
+        slot.classList.add("ok"); slot.classList.remove("bad");
+        msg.textContent = "Жарайсың! Дұрыс ✅";
+      } else {
+        slot.classList.add("bad"); slot.classList.remove("ok");
+        msg.textContent = "Қайта көр! Дұрысы: " + need;
+      }
+    };
+    document.getElementById("newGame").onclick = newPair;
+
+    // 3) Мини тест
+    document.getElementById("checkTest").onclick = ()=>{
+      const inputs = [...document.querySelectorAll(".ans")];
+      let ok = 0;
+      inputs.forEach(inp=>{
+        const got = (inp.value||"").trim().replace("‹","<").replace("›",">");
+        const need = inp.dataset.ok;
+        if(got === need){ ok++; inp.style.borderColor = "rgba(34,197,94,.6)"; }
+        else { inp.style.borderColor = "rgba(239,68,68,.6)"; }
+      });
+      document.getElementById("testMsg").textContent = `Нәтиже: ${ok}/${inputs.length} ⭐`;
+    };
   </script>
 </body>
 </html>
