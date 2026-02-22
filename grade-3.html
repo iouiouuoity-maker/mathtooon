@@ -1,18 +1,264 @@
-<!doctype html><html lang="kk"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>3-сынып • MathToon</title><link rel="stylesheet" href="assets/style.css"/>
-</head><body>
-<div class="topbar"><div class="nav">
-  <div class="brand"><div class="logo"></div><div><h1>MathToon</h1><small>3-сынып • тақырыптар</small></div></div>
-  <div class="pills"><a class="pill" href="index.html">🏠</a></div>
-</div></div>
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>3-сынып • MathToon</title>
+<style>
+:root{--p:#f97316;--g:#22c55e;--b:#38bdf8;--stroke:rgba(2,6,23,.10);--shadow:0 14px 30px rgba(2,6,23,.12);--r:26px;}
+*{box-sizing:border-box}
+body{margin:0;font-family:ui-rounded,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#0f172a;
+background:
+radial-gradient(circle at 12% 10%,#fff7ed,transparent 45%),
+radial-gradient(circle at 85% 18%,#e0f2fe,transparent 45%),
+radial-gradient(circle at 32% 88%,#dcfce7,transparent 55%),#f8fafc;}
+header{position:sticky;top:0;z-index:20;background:rgba(248,250,252,.85);backdrop-filter:blur(10px);
+border-bottom:1px solid var(--stroke);padding:10px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:52px;height:52px;border-radius:18px;background:linear-gradient(135deg,var(--p),var(--b));
+box-shadow:var(--shadow);position:relative;transform:rotate(-2deg)}
+.logo:after{content:"×";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-weight:1000;font-size:26px}
+.brand h1{margin:0;font-size:18px;line-height:1.1}
+.brand small{display:block;color:#475569;font-weight:900}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{padding:9px 12px;border-radius:999px;border:1px solid var(--stroke);background:rgba(255,255,255,.85);
+box-shadow:0 8px 18px rgba(2,6,23,.07);font-weight:1000;font-size:13px;cursor:pointer}
+.container{max-width:1100px;margin:0 auto;padding:16px}
+.hero{border:1px solid var(--stroke);border-radius:var(--r);box-shadow:var(--shadow);
+background:linear-gradient(135deg,rgba(249,115,22,.16),rgba(56,189,248,.12),rgba(34,197,94,.10));padding:16px;position:relative;overflow:hidden}
+.spark{position:absolute;inset:-10px;opacity:.55;pointer-events:none;background-image:
+radial-gradient(circle at 10% 20%, rgba(250,204,21,.8) 0 2px, transparent 3px),
+radial-gradient(circle at 30% 60%, rgba(56,189,248,.8) 0 2px, transparent 3px),
+radial-gradient(circle at 70% 30%, rgba(34,197,94,.75) 0 2px, transparent 3px),
+radial-gradient(circle at 85% 75%, rgba(249,115,22,.65) 0 2px, transparent 3px);
+animation:f 6s ease-in-out infinite}
+@keyframes f{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:14px}
+.card{grid-column:span 12;background:rgba(255,255,255,.88);border:1px solid var(--stroke);border-radius:var(--r);
+padding:14px;box-shadow:var(--shadow)}
+@media(min-width:900px){.span6{grid-column:span 6}.span4{grid-column:span 4}.span8{grid-column:span 8}}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.tab{padding:10px 12px;border-radius:16px;border:1px solid var(--stroke);background:rgba(255,255,255,.9);font-weight:1000;cursor:pointer}
+.tab.active{outline:3px solid rgba(249,115,22,.18)}
+.hidden{display:none}
+.row{display:grid;grid-template-columns:1fr 170px;gap:10px;align-items:center;padding:10px;border-radius:22px;
+border:1px solid rgba(2,6,23,.10);background:rgba(255,255,255,.75);margin-top:10px}
+.input{width:100%;padding:12px;border-radius:18px;border:1px solid rgba(2,6,23,.14);font-weight:1000}
+.btn{display:inline-flex;gap:10px;align-items:center;padding:12px 14px;border-radius:18px;border:1px solid var(--stroke);
+background:rgba(255,255,255,.9);font-weight:1000;cursor:pointer;box-shadow:0 10px 18px rgba(2,6,23,.08)}
+.note{padding:12px;border-radius:22px;border:1px solid rgba(249,115,22,.26);background:rgba(249,115,22,.10);font-weight:1000;margin-top:10px}
+.small{font-size:12px;color:#475569;font-weight:900;margin-top:6px}
+.scene{border:1px solid var(--stroke);border-radius:24px;background:linear-gradient(180deg,rgba(249,115,22,.18),rgba(56,189,248,.10));
+padding:12px;position:relative;overflow:hidden;min-height:170px}
+.char{position:absolute;bottom:52px;width:120px;height:120px;border-radius:28px;background:rgba(255,255,255,.86);
+border:1px solid rgba(2,6,23,.08);display:grid;place-items:center;box-shadow:0 16px 26px rgba(2,6,23,.12);animation:hop 1.6s ease-in-out infinite}
+@keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.face{width:76px;height:76px;border-radius:24px;background:linear-gradient(135deg,rgba(250,204,21,.55),rgba(249,115,22,.22));
+display:grid;place-items:center;font-size:34px;border:1px solid rgba(2,6,23,.06)}
+.ground{position:absolute;left:0;right:0;bottom:0;height:56px;background:linear-gradient(180deg,rgba(34,197,94,0),rgba(34,197,94,.28))}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="logo"></div>
+    <div><h1>MathToon</h1><small>3-сынып • PandaPro 🐼</small></div>
+  </div>
+  <div class="pills">
+    <a class="pill" href="index.html">🏠 Басты бет</a>
+    <button class="pill" onclick="window.print()">🖨️</button>
+  </div>
+</header>
+
 <div class="container">
-  <section class="hero"><div class="sparkles"></div><h2>3-сынып</h2><p>Тақырыпты таңда ✅</p></section>
-  <div class="grid"><div class="card"><h3>🧩 Тақырыптар</h3><div class="kids">
-    <a class="kid" href="topic.html?g=3&tid=g3-order"><div class="sticker st1">★</div><strong>Амалдардың тәртібі</strong><small>жақша</small></a>
-    <a class="kid" href="topic.html?g=3&tid=g3-mul"><div class="sticker st2">★</div><strong>Көбейту</strong><small>кесте</small></a>
-    <a class="kid" href="topic.html?g=3&tid=g3-div"><div class="sticker st3">★</div><strong>Бөлу</strong><small>кері амал</small></a>
-    <a class="kid" href="topic.html?g=3&tid=g3-frac0"><div class="sticker st4">★</div><strong>Бөлшекке кіріспе</strong><small>fraction tiles</small></a>
-    <a class="kid" href="topic.html?g=3&tid=g3-story3"><div class="sticker st1">★</div><strong>Мәтінді есеп (2 амал)</strong><small>логика</small></a>
-  </div></div></div>
-</div></body></html>
+  <section class="hero">
+    <div class="spark"></div>
+    <h2 style="margin:0 0 6px 0;font-size:26px">3-сынып (дефолт)</h2>
+    <p style="margin:0;color:#475569;font-weight:900">Көбейту/Бөлу • 1000-ға дейін • Периметр</p>
+    <div class="tabs">
+      <button class="tab active" data-tab="t1">✖️➗ Көбейту/Бөлу</button>
+      <button class="tab" data-tab="t2">🔢 1000-ға дейін</button>
+      <button class="tab" data-tab="t3">📏 Периметр</button>
+    </div>
+  </section>
+
+  <!-- TAB 1 -->
+  <div id="t1" class="grid">
+    <div class="card span6">
+      <h3>🎬 Түсіндірме: көбейту — қайталанатын қосу</h3>
+      <div class="scene">
+        <div class="char" style="left:14px"><div><div class="face">🐼</div><div class="small"><b id="mA">3</b> топ</div></div></div>
+        <div class="char" style="right:14px;animation-delay:.2s"><div><div class="face">🍡</div><div class="small"><b id="mB">4</b> дана</div></div></div>
+        <div class="char" style="left:50%;transform:translateX(-50%);bottom:58px;animation-delay:.1s"><div><div class="face">⭐</div><div class="small"><b id="mS">12</b></div></div></div>
+        <div class="ground"></div>
+      </div>
+      <div class="note" id="mRule">3 × 4 = 12 (3 топта 4-тен)</div>
+      <button class="btn" id="mNew">🔄 Жаңа мысал</button>
+    </div>
+
+    <div class="card span6">
+      <h3>📝 L1/L2/L3 (авто)</h3>
+      <div class="row"><div><b id="mq1">?</b></div><input class="input mAns" data-i="0" placeholder="Жауап"></div>
+      <div class="row"><div><b id="mq2">?</b></div><input class="input mAns" data-i="1" placeholder="Жауап"></div>
+      <div class="row"><div><b id="mq3">?</b></div><input class="input mAns" data-i="2" placeholder="Жауап"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+        <button class="btn" id="mCheck">✅ Тексеру</button>
+        <button class="btn" id="mRegen">🎲 Басқа тапсырма</button>
+      </div>
+      <div class="note" id="mMsg">Дайын болсаң — тексер 😊</div>
+    </div>
+  </div>
+
+  <!-- TAB 2 -->
+  <div id="t2" class="grid hidden">
+    <div class="card span6">
+      <h3>🔢 1000-ға дейін: разрядтар</h3>
+      <div class="note"><b>Мысал:</b> 582 = 5 жүздік + 8 ондық + 2 бірлік</div>
+      <div class="row"><div><b id="rQ">746 = □ жүздік + □ ондық + □ бірлік</b></div>
+        <input class="input" id="rA" placeholder="мыс: 7,4,6"></div>
+      <button class="btn" id="rCheck">✅ Тексеру</button>
+      <div class="note" id="rMsg">“7,4,6” форматымен жаз</div>
+    </div>
+
+    <div class="card span6">
+      <h3>🧩 Амалдар (1000)</h3>
+      <div class="row"><div><b id="nq1">?</b></div><input class="input nAns" data-i="0" placeholder="Жауап"></div>
+      <div class="row"><div><b id="nq2">?</b></div><input class="input nAns" data-i="1" placeholder="Жауап"></div>
+      <div class="row"><div><b id="nq3">?</b></div><input class="input nAns" data-i="2" placeholder="Жауап"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+        <button class="btn" id="nCheck">✅ Тексеру</button>
+        <button class="btn" id="nRegen">🎲 Басқа тапсырма</button>
+      </div>
+      <div class="note" id="nMsg">Жұлдыз жинайық ⭐</div>
+    </div>
+  </div>
+
+  <!-- TAB 3 -->
+  <div id="t3" class="grid hidden">
+    <div class="card span6">
+      <h3>📏 Периметр</h3>
+      <div class="note">Ереже: <b>P = a+b+c+d</b> (төрт қабырға қосылады)</div>
+      <div class="row"><div><b>Тіктөртбұрыш: a=8, b=5. P=?</b></div><input class="input" id="p1" placeholder="Жауап"></div>
+      <div class="row"><div><b>Шаршы: a=7. P=?</b></div><input class="input" id="p2" placeholder="Жауап"></div>
+      <button class="btn" id="pCheck">✅ Тексеру</button>
+      <div class="note" id="pMsg">Дайын болсаң — тексер 😊</div>
+    </div>
+
+    <div class="card span6">
+      <h3>🧠 Мәтінді есеп (периметр)</h3>
+      <div class="note"><b>Есеп:</b> Бақша 6 м және 4 м. Қоршау ұзындығы (P) қанша?</div>
+      <div class="row"><div><b>Жауап</b></div><input class="input" id="p3" placeholder="Жауап"></div>
+      <button class="btn" id="pWord">✅ Тексеру</button>
+      <div class="note" id="pWordMsg">Жауапты жаз</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Tabs */
+const tabs=[...document.querySelectorAll(".tab")];
+function show(id){
+  ["t1","t2","t3"].forEach(x=>document.getElementById(x).classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+  tabs.forEach(t=>t.classList.toggle("active", t.dataset.tab===id));
+  window.scrollTo(0,0);
+}
+tabs.forEach(t=>t.onclick=()=>show(t.dataset.tab));
+
+function rnd(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
+
+/* TAB1: multiply/divide */
+let mset=[];
+function mVal(it){ return it.op==="×" ? it.a*it.b : it.a/it.b; }
+function mGen(){
+  // L1: кестелік көбейту, L2: бөлу, L3: аралас
+  const a1=rnd(2,9), b1=rnd(2,9);
+  const b2=rnd(2,9), q2=rnd(2,9), a2=b2*q2; // a2 ÷ b2 = q2
+  const mix = Math.random()<.5 ? "×" : "÷";
+  let a3,b3;
+  if(mix==="×"){ a3=rnd(6,12); b3=rnd(2,9); }
+  else { b3=rnd(2,9); const q3=rnd(3,12); a3=b3*q3; }
+  mset=[
+    {lvl:"L1", op:"×", a:a1, b:b1},
+    {lvl:"L2", op:"÷", a:a2, b:b2},
+    {lvl:"L3", op:mix, a:a3, b:b3}
+  ];
+  document.getElementById("mq1").textContent=`⭐ ${mset[0].lvl}: ${mset[0].a} × ${mset[0].b} = ?`;
+  document.getElementById("mq2").textContent=`⭐ ${mset[1].lvl}: ${mset[1].a} ÷ ${mset[1].b} = ?`;
+  document.getElementById("mq3").textContent=`⭐ ${mset[2].lvl}: ${mset[2].a} ${mset[2].op} ${mset[2].b} = ?`;
+  document.querySelectorAll(".mAns").forEach(i=>{i.value=""; i.style.borderColor="rgba(2,6,23,.14)";});
+  document.getElementById("mMsg").textContent="Дайын болсаң — тексер 😊";
+}
+document.getElementById("mCheck").onclick=()=>{
+  let ok=0;
+  document.querySelectorAll(".mAns").forEach(inp=>{
+    const idx=Number(inp.dataset.i);
+    const need=String(mVal(mset[idx]));
+    const got=(inp.value||"").trim();
+    if(got===need){ok++; inp.style.borderColor="rgba(34,197,94,.6)";}
+    else inp.style.borderColor="rgba(239,68,68,.6)";
+  });
+  document.getElementById("mMsg").textContent=`Нәтиже: ${ok}/3 ⭐`;
+};
+document.getElementById("mRegen").onclick=mGen;
+
+/* TAB1 animation */
+function mExample(){
+  const A=rnd(2,9), B=rnd(2,9);
+  document.getElementById("mA").textContent=A;
+  document.getElementById("mB").textContent=B;
+  document.getElementById("mS").textContent=A*B;
+  document.getElementById("mRule").textContent=`${A} × ${B} = ${A*B} (${A} топта ${B}-ден)`;
+}
+document.getElementById("mNew").onclick=mExample;
+mExample(); mGen();
+
+/* TAB2: place value + 1000 ops */
+document.getElementById("rCheck").onclick=()=>{
+  const got=(document.getElementById("rA").value||"").trim();
+  const need="7,4,6";
+  document.getElementById("rMsg").textContent = (got===need) ? "Дұрыс ✅" : `Қате ❌ Дұрысы: ${need}`;
+};
+
+let nset=[];
+function nVal(it){ return it.op==="+" ? it.a+it.b : it.a-it.b; }
+function nGen(){
+  nset=[
+    {lvl:"L1", op:"+", a:rnd(100,450), b:rnd(100,450)},
+    {lvl:"L2", op:"-", a:rnd(300,900), b:rnd(100,299)},
+    {lvl:"L3", op:(Math.random()<.5?"+":"-"), a:rnd(400,999), b:rnd(100,599)}
+  ];
+  document.getElementById("nq1").textContent=`⭐ L1: ${nset[0].a} + ${nset[0].b} = ?`;
+  document.getElementById("nq2").textContent=`⭐ L2: ${nset[1].a} − ${nset[1].b} = ?`;
+  document.getElementById("nq3").textContent=`⭐ L3: ${nset[2].a} ${nset[2].op} ${nset[2].b} = ?`;
+  document.querySelectorAll(".nAns").forEach(i=>{i.value=""; i.style.borderColor="rgba(2,6,23,.14)";});
+  document.getElementById("nMsg").textContent="Жұлдыз жинайық ⭐";
+}
+document.getElementById("nCheck").onclick=()=>{
+  let ok=0;
+  document.querySelectorAll(".nAns").forEach(inp=>{
+    const idx=Number(inp.dataset.i);
+    const need=String(nVal(nset[idx]));
+    const got=(inp.value||"").trim();
+    if(got===need){ok++; inp.style.borderColor="rgba(34,197,94,.6)";}
+    else inp.style.borderColor="rgba(239,68,68,.6)";
+  });
+  document.getElementById("nMsg").textContent=`Нәтиже: ${ok}/3 ⭐`;
+};
+document.getElementById("nRegen").onclick=nGen;
+nGen();
+
+/* TAB3: perimeter checks */
+document.getElementById("pCheck").onclick=()=>{
+  let ok=0;
+  if((document.getElementById("p1").value||"").trim()==="26") ok++;
+  if((document.getElementById("p2").value||"").trim()==="28") ok++;
+  document.getElementById("pMsg").textContent=`Нәтиже: ${ok}/2 ⭐ (26 және 28)`;
+};
+document.getElementById("pWord").onclick=()=>{
+  const got=(document.getElementById("p3").value||"").trim();
+  document.getElementById("pWordMsg").textContent = (got==="20") ? "Дұрыс ✅" : "Қате ❌ (20)";
+};
+</script>
+</body>
+</html>
